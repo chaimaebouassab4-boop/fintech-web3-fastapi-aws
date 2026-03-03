@@ -1,168 +1,363 @@
-# FinTech Crypto Application
+<div align="center">
 
-## Overview
-The *FinTech Crypto Application* is a scalable, secure platform designed to revolutionize financial transactions by integrating blockchain, data analytics, and a microservices architecture. This project uses cutting-edge technologies to deliver seamless cryptocurrency transactions, smart contract functionalities, and financial data insights.
+# 🏦 FinTech Web3 Platform
+### Microservices · Blockchain · FastAPI · AWS
 
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Angular](https://img.shields.io/badge/Angular-17+-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io)
+[![Ethereum](https://img.shields.io/badge/Ethereum-Sepolia-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white)](https://ethereum.org)
+[![AWS](https://img.shields.io/badge/AWS-EKS%20%7C%20EC2%20%7C%20RDS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com)
+[![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+[![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
 
-## Features
-- **Microservices Architecture**: Modular design for scalability and maintainability.
-- **Blockchain Integration**: Secure financial transactions via Ethereum.
-- **Data Analytics**: Insights into market trends and user behaviors.
-- **FastAPI Framework**: High-performance APIs for backend services.
-- **Frontend (SPA)**: Responsive Angular interface for users.
-- **DevOps**: Automated deployment with Docker, Kubernetes, and Jenkins.
-- **Cloud Deployment**: Scalable and accessible infrastructure using AWS services.
+<br/>
 
+> A **production-grade FinTech platform** combining microservices architecture, Ethereum blockchain, and advanced data analytics — deployed on AWS with full CI/CD automation.
 
----
+<br/>
 
-## Architecture
-### Technologies Used:
-- **Frontend**: Angular (SPA)
-- **Backend**: FastAPI, SQLAlchemy
-- **Blockchain**: Ethereum (Sepolia Testnet), Solidity, MetaMask, Web3.py
-- **Database**: PostgreSQL
-- **Data Analytics**: Pandas, NumPy, Plotly, Seaborn
-- **DevOps**: Docker, Jenkins, Kubernetes, Terraform
-- **Cloud**: AWS (EC2, RDS, S3, CloudWatch)
+[🚀 Quick Start](#-quick-start) · [🏗️ Architecture](#️-architecture) · [📡 API Docs](#-api-reference) · [🔗 Blockchain](#-blockchain-integration) · [📊 Analytics](#-data-analytics)
 
-### Microservices:
-1. **User Management Service**: 
-   - Handles user accounts and wallets.
-   - Manages authentication with JWT and OAuth2.
-   - CRUD operations for users and wallets.
-2. **Transaction Service**: 
-   - Processes financial transactions.
-   - Validates wallets and tracks transaction history.
-3. **Blockchain Service**:
-   - Executes smart contracts on Ethereum.
-   - Integrates MetaMask for wallet authentication.
-4. **Data Analytics Service**:
-   - Processes transaction data for insights.
-   - Generates dashboards and visualizations.
-
+</div>
 
 ---
 
-## Components
+## ✨ Key Features
 
-### User Management Microservice
-#### Features:
-- Secure user authentication and account management.
-- Wallet creation and balance tracking.
-- Role-based access control for admin functionalities.
-
-#### Key Files:
-1. **`database/main.py`**:
-   - Initializes the database and manages session creation.
-2. **`user/model.py`**:
-   - Defines models for `User` and `Wallet`.
-3. **`user/repository.py`**:
-   - Encapsulates database operations for users and wallets.
-4. **`user/services.py`**:
-   - Implements business logic for user and wallet management.
-5. **`user/routes.py`**:
-   - Exposes RESTful endpoints for authentication, user, and wallet management.
-6. **`utils/auth.py`**:
-   - Provides JWT-based authentication and password hashing.
-7. **`config.py`**:
-   - Centralizes configuration using environment variables.
-
-#### Endpoints:
-- **`/register`**: User registration.
-- **`/token`**: JWT token generation for authentication.
-- **`/users/{username}/wallets`**: Wallet creation.
-- **Admin Actions**:
-  - Manage users: CRUD operations.
-  - Disable or enable user accounts.
-
+| Feature | Description |
+|---|---|
+| 🔐 **Secure Auth** | JWT + OAuth2 with role-based access control |
+| ⛓️ **Blockchain** | Smart contracts on Ethereum Sepolia Testnet via Solidity & Web3.py |
+| 💳 **Transactions** | Full lifecycle management for traditional & crypto payments |
+| 📈 **Analytics** | Real-time dashboards with candlestick charts & trend analysis |
+| ☁️ **Cloud-Native** | Auto-scaling on AWS EKS with Terraform-managed infrastructure |
+| 🔄 **CI/CD** | Automated pipelines via Jenkins + Docker + Kubernetes |
+| 📡 **Monitoring** | Prometheus, Grafana & AWS CloudWatch observability |
 
 ---
 
-### Blockchain Integration
-#### Smart Contract:
-- **Language**: Solidity
-- **Features**:
-  - Payable contract for receiving Ether.
-  - Withdraw function for transferring funds.
-  - Balance retrieval.
-- **Deployment**:
-  - Ethereum Sepolia Testnet.
-  - Verified on Etherscan.
+## 🏗️ Architecture
 
-#### Tools:
-- MetaMask: Wallet and transaction management.
-- Web3.py: Backend integration with Ethereum.
-- Infura: Blockchain connectivity.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        Angular SPA                          │
+│              (MetaMask · Web3.js · Dashboard)               │
+└───────────────────────┬─────────────────────────────────────┘
+                        │ REST / WebSocket
+              ┌─────────▼──────────┐
+              │    API Gateway     │  ← JWT / OAuth2
+              └──────┬──────┬──────┘
+        ┌────────────┘      └────────────┐
+        │                               │
+┌───────▼────────┐             ┌────────▼────────┐
+│  User Service  │             │ Transaction Svc │
+│  (FastAPI)     │             │   (FastAPI)     │
+└───────┬────────┘             └────────┬────────┘
+        │                               │
+┌───────▼────────┐             ┌────────▼────────┐
+│  Blockchain    │             │  Analytics Svc  │
+│  Service       │             │  (Pandas/Plotly)│
+│  (Web3.py)     │             └─────────────────┘
+└───────┬────────┘
+        │
+┌───────▼──────────────┐
+│  Ethereum Sepolia     │
+│  (Solidity Contracts) │
+└──────────────────────┘
+```
 
+### Microservices
 
----
-
-### Data Analytics
-#### Financial Data Analysis:
-- **Data Source**: CoinGecko API.
-- **Libraries**: Pandas, NumPy, Plotly, Seaborn.
-- **Visualizations**:
-  - Candlestick charts.
-  - Transaction volume graphs.
-  - Closing price trends.
-  - Log-transformed price graphs.
-
-
----
-
-## DevOps Implementation
-#### Docker:
-- Containerized microservices for consistency.
-
-#### Docker Compose:
-- Orchestrated the deployment of frontend, backend, and database.
-
-#### Jenkins CI/CD:
-- Automated build, test, and deployment pipelines.
-
-#### Kubernetes:
-- Deployed Dockerized containers on AWS EKS.
-
-#### Terraform:
-- Infrastructure as code for scalable and consistent setups.
-
+| Service | Responsibility | Tech |
+|---|---|---|
+| **User Management** | Auth, wallets, account CRUD | FastAPI, JWT, SQLAlchemy |
+| **Transaction Service** | Payment processing, history | FastAPI, PostgreSQL |
+| **Blockchain Service** | Smart contracts, on-chain txns | Web3.py, Solidity, MetaMask |
+| **Analytics Service** | Insights, dashboards, reports | Pandas, Plotly, Seaborn |
 
 ---
 
-## Deployment
-- **Frontend**: Accessible at `http://localhost`.
-- **Backend**: Available at `http://localhost:8000/docs`.
-- **Database**: Managed via PostgreSQL.
+## 🛠️ Tech Stack
+
+<details>
+<summary><strong>Backend</strong></summary>
+
+- **Framework**: FastAPI + Uvicorn
+- **ORM**: SQLAlchemy
+- **Database**: PostgreSQL (AWS RDS)
+- **Auth**: JWT, OAuth2, bcrypt
+
+</details>
+
+<details>
+<summary><strong>Blockchain</strong></summary>
+
+- **Smart Contracts**: Solidity (ERC-20, payable, staking)
+- **Network**: Ethereum Sepolia Testnet
+- **Integration**: Web3.py, Infura
+- **Wallet**: MetaMask
+
+</details>
+
+<details>
+<summary><strong>Frontend</strong></summary>
+
+- **Framework**: Angular 17 (SPA)
+- **Wallet UI**: MetaMask integration
+- **Charts**: Plotly, Seaborn
+
+</details>
+
+<details>
+<summary><strong>DevOps & Cloud</strong></summary>
+
+- **Containers**: Docker, Docker Compose
+- **Orchestration**: Kubernetes (AWS EKS)
+- **IaC**: Terraform
+- **CI/CD**: Jenkins
+- **Cloud**: AWS EC2, RDS, S3, CloudWatch
+- **Monitoring**: Prometheus, Grafana
+
+</details>
 
 ---
 
-## Conclusion
-The *FinTech Crypto Application* demonstrates the potential of integrating microservices, blockchain, and data analytics to address modern financial challenges. Its modular design ensures scalability, security, and ease of maintenance, providing a solid foundation for future enhancements.
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Docker & Docker Compose
+- Node.js 18+
+- Python 3.11+
+- MetaMask browser extension
+- AWS CLI (for cloud deployment)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/chaimaebouassab4-boop/fintech-web3-fastapi-aws.git
+cd fintech-web3-fastapi-aws
+```
+
+### 2. Configure Environment
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your credentials:
+
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/fintech_db
+
+# Security
+SECRET_KEY=your-256-bit-secret-key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+# Blockchain
+INFURA_PROJECT_ID=your-infura-project-id
+CONTRACT_ADDRESS=your-deployed-contract-address
+ETHEREUM_NETWORK=sepolia
+
+# AWS (optional for local dev)
+AWS_ACCESS_KEY_ID=your-key
+AWS_SECRET_ACCESS_KEY=your-secret
+AWS_REGION=eu-west-1
+```
+
+### 3. Launch All Services
+
+```bash
+docker-compose up --build
+```
+
+| Service | URL |
+|---|---|
+| 🌐 Frontend | http://localhost |
+| 📡 API Docs (Swagger) | http://localhost:8000/docs |
+| 📊 Grafana Dashboard | http://localhost:3000 |
+| 🗄️ PostgreSQL | localhost:5432 |
 
 ---
 
-## How to Run Locally
-1. Clone the repository:
-   ```bash
-   git clone <repository_url>
-   cd fintech-project
-   ```
-2. Set up the environment:
-   - Create a `.env` file with:
-     ```
-     DATABASE_URL=<your_database_url>
-     SECRET_KEY=<your_secret_key>
-     ```
-3. Start the services:
-   ```bash
-   docker-compose up --build
-   ```
-4. Access:
-   - Frontend: `http://localhost`
-   - Backend: `http://localhost:8000/docs`
+## 📡 API Reference
+
+### Authentication
+
+```http
+POST /register          # Create a new user account
+POST /token             # Obtain JWT access token
+```
+
+### User & Wallet Management
+
+```http
+GET    /users/me                      # Get current user profile
+POST   /users/{username}/wallets      # Create a new crypto wallet
+GET    /users/{username}/wallets      # List all wallets
+```
+
+### Transactions
+
+```http
+POST   /transactions                  # Submit a new transaction
+GET    /transactions/{id}             # Get transaction details
+GET    /transactions/history          # Full transaction history
+```
+
+### Blockchain
+
+```http
+POST   /blockchain/deploy             # Deploy smart contract
+POST   /blockchain/send               # Send ETH via contract
+GET    /blockchain/balance/{address}  # Get on-chain wallet balance
+```
+
+> 📘 Full interactive docs available at `http://localhost:8000/docs`
 
 ---
 
-## License
-This project is licensed under the MIT License.
+## 🔗 Blockchain Integration
+
+### Smart Contract (Solidity)
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract FinTechPayments {
+    address public owner;
+
+    constructor() { owner = msg.sender; }
+
+    receive() external payable {}
+
+    function withdraw(uint256 amount) external {
+        require(msg.sender == owner, "Unauthorized");
+        payable(owner).transfer(amount);
+    }
+
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+}
+```
+
+### Deployment
+
+The contract is deployed and verified on **Ethereum Sepolia Testnet** via Etherscan. Users connect via **MetaMask** to sign and submit transactions directly from the browser.
+
+---
+
+## 📊 Data Analytics
+
+Powered by the **CoinGecko API**, the analytics service generates:
+
+- 📉 **Candlestick Charts** — OHLC price data per asset
+- 📊 **Volume Graphs** — Transaction volume over time
+- 📈 **Closing Price Trends** — Historical price curves
+- 🔢 **Log-Scale Price Graphs** — Normalized for volatility comparison
+
+Libraries used: `Pandas` · `NumPy` · `Plotly` · `Seaborn`
+
+---
+
+## ☁️ Cloud Deployment (AWS)
+
+```bash
+# 1. Provision infrastructure with Terraform
+cd infra/terraform
+terraform init && terraform apply
+
+# 2. Build & push Docker images
+docker build -t fintech-api ./backend
+docker tag fintech-api:latest <ECR_URI>/fintech-api:latest
+docker push <ECR_URI>/fintech-api:latest
+
+# 3. Deploy to EKS
+kubectl apply -f k8s/
+kubectl get pods -n fintech
+```
+
+**AWS Services Used:**
+
+| Service | Purpose |
+|---|---|
+| **EKS** | Kubernetes cluster for microservices |
+| **RDS (PostgreSQL)** | Managed relational database |
+| **S3** | Static assets & Terraform state |
+| **EC2** | Worker nodes |
+| **CloudWatch** | Logs & alerting |
+| **IAM** | Secure access management |
+
+---
+
+## 🔄 CI/CD Pipeline
+
+```
+[Git Push] → [Jenkins Trigger]
+               ├── Lint & Unit Tests
+               ├── Docker Build
+               ├── Push to ECR
+               └── Deploy to EKS (kubectl apply)
+```
+
+---
+
+## 📁 Project Structure
+
+```
+fintech-web3-fastapi-aws/
+├── backend/
+│   ├── user_service/
+│   │   ├── database/main.py        # DB initialization
+│   │   ├── user/model.py           # SQLAlchemy models
+│   │   ├── user/repository.py      # DB operations
+│   │   ├── user/services.py        # Business logic
+│   │   ├── user/routes.py          # API endpoints
+│   │   ├── utils/auth.py           # JWT utilities
+│   │   └── config.py               # Environment config
+│   ├── transaction_service/
+│   ├── blockchain_service/
+│   └── analytics_service/
+├── frontend/                        # Angular SPA
+├── contracts/                       # Solidity smart contracts
+├── infra/
+│   ├── terraform/                   # AWS infrastructure
+│   ├── k8s/                         # Kubernetes manifests
+│   └── jenkins/                     # CI/CD pipeline config
+├── docker-compose.yml
+├── .env.example
+└── README.md
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'feat: add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+Made with ❤️ by **chaimaebouassab4**
+
+⭐ Star this repo if you found it helpful!
+
+</div>
